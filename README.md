@@ -13,7 +13,7 @@ npm i
 
 Start the Express server with
 
-`node backend/server`
+`node backend/server.js`
 
 Then start the client with
 
