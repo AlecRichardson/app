@@ -10,7 +10,7 @@ const port = 3001;
 /* * * * DB CONFIG * * * */
 const mongoose = require('mongoose');
 const config = require('./config.js');
-mongoose.connect('mongodb://admin:4830hackweek@ds151293.mlab.com:51293/hackweek', {
+mongoose.connect('mongodb://' +config.user+ ':' +config.pass+ '@ds151293.mlab.com:51293/hackweek', {
   useMongoClient: true
 });
 
@@ -28,8 +28,7 @@ var User = require('./models/user');
 const router = express.Router();
 
 router.use(function(req, res, next) {
-  console.log('Request received!');
-  console.log(mongoose.connection.readyState);
+  console.log('Request received with ready state [' +db.readyState+ ']');
   next();
 });
 
