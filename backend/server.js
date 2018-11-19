@@ -10,12 +10,8 @@ const port = 3001;
 /* * * * DB CONFIG * * * */
 const mongoose = require('mongoose');
 const config = require('./config.js');
-mongoose.connect('mongodb://ds151293.mlab.com:51293/hackweek',{
-  useNewUrlParser: true,
-  auth: {
-    user: config.user,
-    password: config.pass
-  }
+mongoose.connect('mongodb://admin:4830hackweek@ds151293.mlab.com:51293/hackweek', {
+  useMongoClient: true
 });
 
 var db = mongoose.connection;
