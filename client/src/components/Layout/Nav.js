@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu, Container } from "semantic-ui-react";
-
+import { Link } from "react-router-dom";
 import "./Nav.css";
 
 export default class Nav extends Component {
@@ -21,33 +21,43 @@ export default class Nav extends Component {
             <h1 className="nav-title">Tutor Finder</h1>
           </Container>
           <Menu className="menu" borderless pointing secondary>
-            <Menu.Item
-              name="home"
-              active={activeItem === "home"}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="find tutors"
-              active={activeItem === "find tutors"}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="profile"
-              active={activeItem === "profile"}
-              onClick={this.handleItemClick}
-            />
+            <Link to="/">
+              <Menu.Item
+                name="home"
+                active={activeItem === "home"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
+            <Link to="/tutors">
+              <Menu.Item
+                name="find tutors"
+                active={activeItem === "find tutors"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
+            <Link to="/profile">
+              <Menu.Item
+                name="profile"
+                active={activeItem === "profile"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
 
             <Menu.Menu position="right">
-              <Menu.Item
-                name="register"
-                active={activeItem === "register"}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
-                name="login"
-                active={activeItem === "login"}
-                onClick={this.handleItemClick}
-              />
+              <Link to="/register">
+                <Menu.Item
+                  name="register"
+                  active={activeItem === "register"}
+                  onClick={this.handleItemClick}
+                />
+              </Link>
+              <Link to="/login">
+                <Menu.Item
+                  name="login"
+                  active={activeItem === "login"}
+                  onClick={this.handleItemClick}
+                />
+              </Link>
             </Menu.Menu>
           </Menu>
         </div>
