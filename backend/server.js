@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+var socketio = require('socket.io');
+var http = require('http');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -54,5 +56,19 @@ router.route('/users')
 // prefix all routes with /api
 app.use('/api', router);
 
-app.listen(port);
-console.log('Listening on port ' + port + "...");
+
+var server = http.Server(app);
+var websocket = socketio(server);
+
+// app.listen(port);
+server.listen(port, () => console.log('Listening on port ' + port + "..."));
+
+
+/* * * * WEBSOCKETS FOR CHATTING * * * */
+
+var clients = {};
+var users = {};
+
+websocket.on('connection', (socket) => {
+  console.log('A client just joined on', socket.id);
+});
