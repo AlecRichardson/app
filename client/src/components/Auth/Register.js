@@ -1,96 +1,116 @@
+import React, { Component,} from 'react';
 import "./Login.css";
-import {Button, RadioButton} from "semantic-ui-react";
-import React, { Component } from 'react'
+import {Button, Form, Radio} from "semantic-ui-react";
 
-export default class Login extends Component {
+export default class Register extends Component {
+	constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+			email: "",
+			grade: "",
+			userType: "",
+      password: "",
+      password2: "",
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+	}
+	
+	onSubmit(e) {
+		e.preventDefault();
+	}
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+	}
+	
+	handleChange = (e, { value }) => this.setState({ value })
+
+
   render() {
+		const { value } = this.state
     return (
-      <div className="form">
-		 <h1>Tutor Finder</h1>
-		    <form>
-                <input type="text" id="name" name="name" placeholder="Your name.."></input>
-                <input type="text" id="email" name="email" placeholder="Your email.."></input>
-			
-			<div className='ui compact menu'>
-			  <div role='listbox' aria-expanded='false' className='ui item simple dropdown' tabindex='0'>
-				<div className='text' role='alert' aria-live='polite'>
-				  Grade Level
+						<div className="formInput">
+						<h1>Tutor Finder</h1>
+						<h2>Create Account</h2>
+				<Form onSubmit={this.onSubmit}>
+
+								<Form.Input
+								  className="formInput"
+									placeholder="Your Name..."
+									name="name"
+									value={this.state.name}
+									onChange={this.onChange}
+								/>
+
+								<Form.Input
+								  className="formInput"
+									placeholder="Email..."
+									name="email"
+									type="email"
+									value={this.state.email}
+									onChange={this.onChange}
+								/>
+								<div>
+								<div className="formInput">
+								<Form.Field control='select'>
+									<option value='9th Grade'>9th Grade</option>
+									<option value='10'>10th Grade</option>
+									<option value='11'>11th Grade</option>
+									<option value='12'>12th Grade</option>
+									<option value='College'>College</option>
+								</Form.Field>
+								</div>
+								</div>
+								<div className="formInput">
+								<Form.Group inline>
+									<label>Type of User</label>
+									<Form.Field
+										control={Radio}
+										label='Student'
+										value='1'
+										checked={value === '1'}
+										onChange={this.handleChange}
+									/>
+									<Form.Field
+										control={Radio}
+										label='Tutor'
+										value='2'
+										checked={value === '2'}
+										onChange={this.handleChange}
+									/>
+									</Form.Group>
+								</div>
+								<Form.Input
+								  className="formInput"
+									placeholder="Password..."
+									name="password"
+									type="password"
+									value={this.state.password}
+									onChange={this.onChange}
+								/>
+								<Form.Input
+								  className="formInput"
+									placeholder="Confirm password..."
+									name="password2"
+									type="password"
+									value={this.state.password2}
+									onChange={this.onChange}
+								/>
+								<div>
+							<Form.Field
+							  className="formInput"
+								control={Button}
+								fluid={true}
+								content="Register"
+								color="green"
+							/>
+							</div>
+				</Form>
 				</div>
-				<i aria-hidden='true' className='dropdown icon' />
-				<div className='menu transition'>
-				  <div
-					style='pointer-events:all'
-					role='option'
-					aria-checked='false'
-					aria-selected='true'
-					className='selected item'
-				  >
-					<span className='text'>9th Grade</span>
-				  </div>
-				  <div
-					style='pointer-events:all'
-					role='option'
-					aria-checked='false'
-					aria-selected='false'
-					className='item'
-				  >
-					<span className='text'>10th Grade</span>
-				  </div>
-				  <div
-					style='pointer-events:all'
-					role='option'
-					aria-checked='false'
-					aria-selected='false'
-					className='item'
-				  >
-					<span className='text'>11th Grade</span>
-				  </div>
-					<div
-					style='pointer-events:all'
-					role='option'
-					aria-checked='false'
-					aria-selected='false'
-					className='item'
-				  >
-					<span className='text'>12th Grade</span>
-				  </div>
-					<div
-					style='pointer-events:all'
-					role='option'
-					aria-checked='false'
-					aria-selected='false'
-					className='item'
-				  >
-					<span className='text'>College</span>
-				  </div>
-				</div>
-			  </div>
-              </div>
-			
-			<div className="ui form">
-			  <div className="inline fields">
-				<label>Are you a Tutor or a Student?</label>
-				<div className="field">
-				    <div className="ui radio checkbox">
-					    <input type="radio" name="frequency"></input>
-					    <label>Tutor</label>
-				    </div>
-                </div>
-				<div className="field">
-				  <div className="ui radio checkbox">
-					<input type="radio" name="frequency"></input>
-					<label>Student</label>
-				  </div>
-        </div>
-			</div>
-			</div>
-			
-			<input type="text" id="password" name="password" placeholder="Password...."></input>
-			<input type="text" id="confPassword" name="confPassword" placeholder="Confirm Password.."></input>
-			
-            <Button primary>Register</Button>
-		</form>
-      </div>
     )
   }
 }
