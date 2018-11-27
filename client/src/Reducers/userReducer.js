@@ -7,7 +7,8 @@ import {
 
 const initialState = {
   registerErrors: {},
-  loginErrors: {}
+  loginErrors: {},
+  loginSucess: {}
 };
 
 export default function(state = initialState, action) {
@@ -20,7 +21,7 @@ export default function(state = initialState, action) {
     case USER_LOGIN_ERRORS:
       return { ...state, loginErrors: action.payload };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loginErrors: {} };
+      return { ...state, loginSuccess: action.payload, loginErrors: {} };
 
     default:
       return initialState;

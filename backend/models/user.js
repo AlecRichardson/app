@@ -6,7 +6,8 @@ var UserSchema = new Schema({
   email: String,
   gradeLevel: String,
   password: String,
-  userType: String
+  userType: String,
+  subjects: [String]
 });
 
 module.exports = mongoose.model("User", UserSchema);

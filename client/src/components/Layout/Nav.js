@@ -10,7 +10,11 @@ export default class Nav extends Component {
     this.state = { activeItem: "home" };
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    // e.preventDefault();
+    this.setState({ activeItem: name });
+    // this.history.push(name);
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -23,6 +27,7 @@ export default class Nav extends Component {
           <Menu className="menu" borderless pointing secondary>
             <Link to="/">
               <Menu.Item
+                as="span"
                 name="home"
                 active={activeItem === "home"}
                 onClick={this.handleItemClick}
@@ -30,6 +35,7 @@ export default class Nav extends Component {
             </Link>
             <Link to="/tutors">
               <Menu.Item
+                as="span"
                 name="find tutors"
                 active={activeItem === "find tutors"}
                 onClick={this.handleItemClick}
@@ -37,6 +43,7 @@ export default class Nav extends Component {
             </Link>
             <Link to="/profile">
               <Menu.Item
+                as="span"
                 name="profile"
                 active={activeItem === "profile"}
                 onClick={this.handleItemClick}
@@ -46,6 +53,7 @@ export default class Nav extends Component {
             <Menu.Menu position="right">
               <Link to="/register">
                 <Menu.Item
+                  as="span"
                   name="register"
                   active={activeItem === "register"}
                   onClick={this.handleItemClick}
@@ -53,6 +61,7 @@ export default class Nav extends Component {
               </Link>
               <Link to="/login">
                 <Menu.Item
+                  as="span"
                   name="login"
                   active={activeItem === "login"}
                   onClick={this.handleItemClick}

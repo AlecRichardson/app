@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
-import { Button, Form, Radio } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 // actions
@@ -44,11 +44,14 @@ class Register extends Component {
 
   handleChange = (e, { value, name }) => this.setState({ [name]: value });
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.registerSuccess) {
+    }
+  };
+
   render() {
-    const { value } = this.state;
     return (
       <div className="formInput">
-        <h1>Tutor Finder</h1>
         <h2>Create Account</h2>
         <Form onSubmit={this.onSubmit}>
           <Form.Input

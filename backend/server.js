@@ -43,23 +43,6 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get("/", function(req, res) {
-  res.json({ message: "hello world! " });
-});
-
-router.route("/users").post(function(req, res) {
-  let user = new User();
-  user.username = req.body.username;
-
-  user.save(function(err) {
-    if (err) {
-      res.send(err);
-    }
-
-    res.json({ message: "User created!" });
-  });
-});
-
 app.use("/api/users", users);
 
 app.listen(port);

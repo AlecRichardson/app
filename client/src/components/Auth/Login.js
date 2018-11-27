@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Label } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import "./Login.css";
@@ -27,7 +27,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    this.props.loginUser(userData);
+    this.props.loginUser(userData, this.props.history);
   }
 
   onChange(e) {
@@ -38,7 +38,6 @@ class Login extends Component {
     return (
       <div>
         <div className="formInput">
-          <h1>Tutor Finder</h1>
           <h2>Login</h2>
           <Form onSubmit={this.onSubmit}>
             <Form.Input
@@ -86,9 +85,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("props 2", state.loginErrors);
   return {
-    loginErrors: state.loginErrors
+    loginErrors: state.loginErrors,
+    loginSucess: state.loginSuccess
   };
 };
 

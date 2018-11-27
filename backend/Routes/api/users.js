@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const passport = require("passport");
+// const passport = require("passport");
 const config = require("../../config.js");
 
 // Load Input Validation
@@ -101,4 +101,39 @@ router.post("/login", (req, res) => {
   });
 });
 
+// @route   PUT api/profile
+// @desc    Add profile
+// @access  Public
+router.put("/profile", (req, res) => {
+  const { subjects, id } = req.body;
+  let error = "";
+
+  if (!subjects) {
+    console.log("No subjects in array");
+    return res
+      .status(400)
+      .json({ error: "Please select at least one subject." });
+  }
+  if (!id) {
+    console.log("No user id");
+    return res.status(400).json({ error: "Please re-login." });
+  }
+
+  User.findByIdAndUpdate(id, { subjects })
+    .then(user => {
+      if (!user) {
+        error = "User not found";
+        return res.status(404).json(error);
+      }
+
+      user
+        .save()
+        .then(created => res.status(201).json(created))
+        .catch(err => console.log(err));
+    })
+    .catch(err => {
+      console.log("failed to update");
+      return err.status(400).json({ error: "Didn't update" });
+    });
+});
 module.exports = router;
