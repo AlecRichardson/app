@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
   state = {users: []};
