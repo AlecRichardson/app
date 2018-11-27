@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-import "./Login.css";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Label } from "semantic-ui-react";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+import "./Login.css";
+
+// actions
+import { loginUser } from "../../Actions/User/UserAction";
+
+class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
       email: "",
-      grade: "",
-      userType: "",
-      password: "",
-      password2: ""
+      password: ""
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -21,13 +22,17 @@ export default class Login extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    this.props.loginUser(userData);
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
-  handleChange = (e, { value }) => this.setState({ value });
 
   render() {
     return (
@@ -44,7 +49,13 @@ export default class Login extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
-
+            {/* {this.props.loginErrors.email ? (
+              <Label
+                color="red"
+                pointing="below"
+                content={this.props.loginErrors.email}
+              />
+            ) : null} */}
             <Form.Input
               className="formInput"
               placeholder="Password..."
@@ -53,6 +64,13 @@ export default class Login extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
+            {/* {this.props.loginErrors.password ? (
+              <Label
+                color="red"
+                pointing="below"
+                content={this.props.loginErrors.password}
+              />
+            ) : null} */}
             <Form.Field
               className="formInput"
               control={Button}
@@ -66,3 +84,15 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log("props 2", state.loginErrors);
+  return {
+    loginErrors: state.loginErrors
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
