@@ -8,17 +8,24 @@ class ChatRoom extends Component {
     super(props);
 
     this.state = {
-      messages: [],
-      userId: null,
+      targetUser: 'user2',
       input: ""
     };
 
-    this.socket = SocketIOClient('http://localhost:3001/api');
+    this.socket = SocketIOClient('http://localhost:3001/');
+  }
+
+  componentDidMount(){
+    this.socket.emit('join', {userId: this.props.userId});
+
+    this.socket.on('new message', (data) => {
+      alert(data.msg);
+    });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    this.socket.emit('chat message', this.state.input);
+    this.socket.emit('chat message', {to: this.state.targetUser, from: this.props.userId, msg: this.state.input});
     this.setState({
       input: ""
     });

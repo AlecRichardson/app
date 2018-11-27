@@ -58,7 +58,7 @@ app.use('/api', router);
 
 
 var server = http.Server(app);
-var websocket = socketio(server);
+var io = socketio(server);
 
 // app.listen(port);
 server.listen(port, () => console.log('Listening on port ' + port + "..."));
@@ -69,6 +69,23 @@ server.listen(port, () => console.log('Listening on port ' + port + "..."));
 var clients = {};
 var users = {};
 
-websocket.on('connection', (socket) => {
-  console.log('A client just joined on', socket.id);
+io.on('connection', (socket) => {
+  console.log('A client just joined: ', socket.id);
+
+  socket.on('disconnect', () => {
+    console.log('A client disconnected: ', socket.id);
+  });
+
+  socket.on('chat message', (data) => {
+    console.log('to: ' + data.to);
+    console.log('from: ' + data.from);
+    console.log('message: ' + data.msg);
+
+    io.sockets.in(data.to).emit('new message', {msg: data.msg, from: data.from});
+  });
+
+  socket.on('join', (data) => {
+    console.log(data.userId + " just joined");
+    socket.join(data.userId);
+  })
 });
