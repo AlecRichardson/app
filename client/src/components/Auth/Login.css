@@ -1,0 +1,12 @@
+/* .wrapper
+{
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	height: auto;
+	text-align: center;
+} */
+.formInput{
+	width: 400px;
+	margin: 0 auto;
+}
