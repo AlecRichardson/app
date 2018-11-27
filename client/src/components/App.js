@@ -7,7 +7,6 @@ import Nav from "../components/Layout/Nav";
 import Landing from "../components/Layout/Landing";
 import Footer from "../components/Layout/Footer";
 
-
 import '../styles/App.css';
 import "semantic-ui-css/semantic.min.css";
 
