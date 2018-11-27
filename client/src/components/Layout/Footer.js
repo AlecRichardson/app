@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Container, Menu } from "semantic-ui-react";
 import "./Footer.css";
 
 export default class Footer extends Component {
@@ -29,16 +28,19 @@ export default class Footer extends Component {
               <h2>Menu</h2>
             </li>
             <li className="menu-item">
-              <a onClick={() => this.handleMenuClick("")}>Home</a>
+              <span>Home</span>
             </li>
             <li className="menu-item">
-              <a onClick={() => this.handleMenuClick("")}>About</a>
+              <span>Find Tutors</span>
             </li>
             <li className="menu-item">
-              <a onClick={() => this.handleMenuClick("")}>Portfolio</a>
+              <span>Profile</span>
             </li>
             <li className="menu-item">
-              <a onClick={() => this.handleMenuClick("")}>Contact</a>
+              <span>Register</span>
+            </li>
+            <li className="menu-item">
+              <span>Login</span>
             </li>
           </ul>
         </div>

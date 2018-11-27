@@ -4,16 +4,16 @@ import { Button, Form, Radio } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 // actions
-import { registerUser } from "../Actions/User/UserAction";
+import { registerUser } from "../../Actions/User/UserAction";
 
 class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
+      fullname: "",
       email: "",
-      grade: "",
+      gradeLevel: "",
       userType: "",
       password: "",
       password2: ""
@@ -27,9 +27,9 @@ class Register extends Component {
     e.preventDefault();
 
     const newUser = {
-      name: this.state.name,
+      name: this.state.fullname,
       email: this.state.email,
-      grade: this.state.grade,
+      gradeLevel: this.state.gradeLevel,
       userType: this.state.userType,
       password: this.state.password,
       password2: this.state.password2
@@ -42,7 +42,7 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleChange = (e, { value }) => this.setState({ value });
+  handleChange = (e, { value, name }) => this.setState({ [name]: value });
 
   render() {
     const { value } = this.state;
@@ -54,8 +54,8 @@ class Register extends Component {
           <Form.Input
             className="formInput"
             placeholder="Your Name..."
-            name="name"
-            value={this.state.name}
+            name="fullname"
+            value={this.state.fullname}
             onChange={this.onChange}
           />
 
@@ -69,8 +69,12 @@ class Register extends Component {
           />
           <div>
             <div className="formInput">
-              <Form.Field control="select">
-                <option value="9th Grade">9th Grade</option>
+              <Form.Field
+                control="select"
+                name="gradeLevel"
+                onChange={this.onChange}
+              >
+                <option value="9">9th Grade</option>
                 <option value="10">10th Grade</option>
                 <option value="11">11th Grade</option>
                 <option value="12">12th Grade</option>
@@ -81,19 +85,26 @@ class Register extends Component {
           <div className="formInput">
             <Form.Group inline>
               <label>Type of User</label>
-              <Form.Field
-                control={Radio}
+              <Form.Radio
                 label="Student"
-                value="1"
-                checked={value === "1"}
-                onChange={this.handleChange}
+                value="student"
+                name="userType"
+                checked={"student" === this.state.userType}
+                onChange={() => {
+                  this.handleChange(null, {
+                    value: "student",
+                    name: "userType"
+                  });
+                }}
               />
-              <Form.Field
-                control={Radio}
+              <Form.Radio
                 label="Tutor"
-                value="2"
-                checked={value === "2"}
-                onChange={this.handleChange}
+                value="tutor"
+                name="userType"
+                checked={"tutor" === this.state.userType}
+                onChange={() => {
+                  this.handleChange(null, { value: "tutor", name: "userType" });
+                }}
               />
             </Form.Group>
           </div>
