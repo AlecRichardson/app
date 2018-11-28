@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import "./Auth/Login.css";
 
 // actions
-import { addProfile } from "../Actions/User/ProfileAction";
+import { addProfile } from "../Actions/User/UserAction";
 
 class Profile extends Component {
   constructor(props) {
@@ -21,13 +21,6 @@ class Profile extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const profileData = {};
-
-    this.props.addProfile(profileData);
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
     let token = localStorage.getItem("userToken");
     const decoded = jwt_decode(token);
 
@@ -38,7 +31,7 @@ class Profile extends Component {
 
     console.log("profile", newProfile);
 
-    // this.props.registerUser(newUser, this.props.history);
+    this.props.addProfile(newProfile, this.props.history);
   }
 
   handleChange = (e, { value, checked }) => {
@@ -110,7 +103,7 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     loginErrors: state.loginErrors,
-    loginSucess: state.loginSuccess
+    loginSuccess: state.loginSuccess
   };
 };
 

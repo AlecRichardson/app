@@ -5,6 +5,7 @@ const passport = require("passport");
 const cors = require("cors");
 
 const users = require("./routes/api/users");
+const tutors = require("./routes/api/tutors");
 
 const app = express();
 
@@ -44,6 +45,7 @@ router.use(function(req, res, next) {
 });
 
 app.use("/api/users", users);
+app.use("/api/tutors", tutors);
 
 app.listen(port);
 console.log("Listening on port " + port + "...");

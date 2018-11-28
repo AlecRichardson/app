@@ -12,6 +12,7 @@ import "semantic-ui-css/semantic.min.css";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Profile from "../components/Profile";
+import Tutor from "../components/Tutor";
 
 class App extends Component {
   state = { users: [] };
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/tutors" component={Tutor} />
           <Footer />
         </div>
       </Router>

@@ -2,13 +2,19 @@ import {
   USER_REGISTER_ERRORS,
   USER_REGISTER_SUCCESS,
   USER_LOGIN_ERRORS,
-  USER_LOGIN_SUCCESS
+  USER_LOGIN_SUCCESS,
+  PROFILE_SUCCESS,
+  PROFILE_ERRORS,
+  TUTOR_SUCCESS,
+  TUTOR_ERRORS
 } from "../Actions/Types";
 
 const initialState = {
   registerErrors: {},
   loginErrors: {},
-  loginSucess: {}
+  profileErrors: {},
+  tutorErrors: {},
+  subjects: null
 };
 
 export default function(state = initialState, action) {
@@ -21,7 +27,17 @@ export default function(state = initialState, action) {
     case USER_LOGIN_ERRORS:
       return { ...state, loginErrors: action.payload };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loginSuccess: action.payload, loginErrors: {} };
+      return { ...state, loginErrors: {} };
+
+    case PROFILE_ERRORS:
+      return { ...state, profileErrors: action.payload };
+    case PROFILE_SUCCESS:
+      return { ...state, profileErrors: {} };
+
+    case TUTOR_ERRORS:
+      return { ...state, tutorErrors: action.payload };
+    case TUTOR_SUCCESS:
+      return { ...state, subjects: action.payload, tutorErrors: {} };
 
     default:
       return initialState;

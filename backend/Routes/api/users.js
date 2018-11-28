@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const passport = require("passport");
 const config = require("../../config.js");
 
 // Load Input Validation
@@ -78,7 +77,8 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name,
           gradeLevel: user.gradeLevel,
-          userType: user.userType
+          userType: user.userType,
+          subjects: user.subjects
         }; // Create JWT payload
 
         // Sign Token
@@ -133,7 +133,8 @@ router.put("/profile", (req, res) => {
     })
     .catch(err => {
       console.log("failed to update");
-      return err.status(400).json({ error: "Didn't update" });
+      return res.status(400).json({ error: "Didn't update" });
     });
 });
+
 module.exports = router;
