@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import "./Login.css";
+// import "../../styles/Login.css";
 
 // actions
 import { loginUser } from "../../Actions/User/UserAction";
@@ -35,6 +35,7 @@ class Login extends Component {
   }
 
   render() {
+    const errors = this.props.loginErrors;
     return (
       <div>
         <div className="formInput">
@@ -47,14 +48,9 @@ class Login extends Component {
               type="email"
               value={this.state.email}
               onChange={this.onChange}
+              error={errors.email}
             />
-            {/* {this.props.loginErrors.email ? (
-              <Label
-                color="red"
-                pointing="below"
-                content={this.props.loginErrors.email}
-              />
-            ) : null} */}
+            {errors.email ? <div className="error">{errors.email}</div> : null}
             <Form.Input
               className="formInput"
               placeholder="Password..."
@@ -62,14 +58,12 @@ class Login extends Component {
               type="password"
               value={this.state.password}
               onChange={this.onChange}
+              error={errors.password}
             />
-            {/* {this.props.loginErrors.password ? (
-              <Label
-                color="red"
-                pointing="below"
-                content={this.props.loginErrors.password}
-              />
-            ) : null} */}
+            {errors.password ? (
+              <div className="error">{errors.password}</div>
+            ) : null}
+
             <Form.Field
               className="formInput"
               control={Button}
@@ -86,8 +80,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginErrors: state.loginErrors,
-    loginSucess: state.loginSuccess
+    loginErrors: state.userReducer.loginErrors
   };
 };
 

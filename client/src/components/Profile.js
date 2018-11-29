@@ -3,7 +3,7 @@ import { Button, Form, Checkbox } from "semantic-ui-react";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
 
-import "./Auth/Login.css";
+import "../styles/Login.css";
 
 // actions
 import { addProfile } from "../Actions/User/UserAction";
