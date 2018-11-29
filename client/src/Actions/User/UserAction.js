@@ -4,9 +4,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_ERRORS,
   PROFILE_SUCCESS,
-  PROFILE_ERRORS,
-  TUTOR_SUCCESS,
-  TUTOR_ERRORS
+  PROFILE_ERRORS
 } from "../Types";
 import axios from "axios";
 
@@ -54,21 +52,6 @@ export const addProfile = (userData, history) => dispatch => {
     .catch(err => {
       dispatch({
         type: PROFILE_ERRORS,
-        payload: err.response.data
-      });
-    });
-};
-
-// get subjects
-export const getSubjects = (id, history) => dispatch => {
-  axios
-    .post(`http://localhost:3001/api/tutors/${id}/subjects`)
-    .then(res => {
-      dispatch({ type: TUTOR_SUCCESS, payload: res.data.subjects });
-    })
-    .catch(err => {
-      dispatch({
-        type: TUTOR_ERRORS,
         payload: err.response.data
       });
     });

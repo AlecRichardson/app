@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 
 // actions
-import { getSubjects } from "../Actions/User/UserAction";
+import { getSubjects, getTutors } from "../Actions/User/TutorAction";
 
 class Tutor extends Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class Tutor extends Component {
     let token = localStorage.getItem("userToken");
     const decoded = jwt_decode(token);
     let user = decoded.id;
-    this.props.getSubjects(user, this.props.history);
+    this.props.getSubjects(user);
+    this.props.getTutors(this.props.subjects);
   };
 
   render() {
@@ -26,20 +27,34 @@ class Tutor extends Component {
     return (
       <div>
         <h1>Find a tutor</h1>
+        {this.props.tutors.map((tutor, index) => {
+          return (
+            <div>
+              <h1>{tutor.name}</h1>
+              <h3>{tutor.userType}</h3>
+              <div>
+                {/* {tutor.name.subjects.forEach(subject => {
+                  <span>{subject}</span>;
+                })} */}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("state", state.userReducer.subjects);
+  console.log("prop state: ", state);
   return {
     tutorErrors: state.tutorErrors,
-    subjects: state.userReducer.subjects
+    subjects: state.tutorReducer.subjects,
+    tutors: state.tutorReducer.tutors
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getSubjects }
+  { getSubjects, getTutors }
 )(Tutor);

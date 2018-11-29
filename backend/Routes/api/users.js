@@ -31,6 +31,7 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         gradeLevel: req.body.gradeLevel,
+        userType: req.body.userType,
         password: req.body.password
       });
 
