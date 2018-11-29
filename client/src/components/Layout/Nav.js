@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Menu, Container } from "semantic-ui-react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
-export default class Nav extends Component {
+import { getSubjects, getTutors } from "../../Actions/User/TutorAction";
+class Nav extends Component {
   constructor(props) {
     super(props);
 
@@ -11,12 +13,11 @@ export default class Nav extends Component {
   }
 
   handleItemClick = (e, { name }) => {
-    // e.preventDefault();
     this.setState({ activeItem: name });
-    // this.history.push(name);
   };
 
   render() {
+    console.log("props from nav: ", this.props);
     const { activeItem } = this.state;
     return (
       <Container>
@@ -74,3 +75,17 @@ export default class Nav extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log("mapstate props: ", state);
+  return {
+    tutorErrors: state.tutorErrors,
+    subjects: state.tutorReducer.subjects,
+    tutors: state.tutorReducer.tutors
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getSubjects, getTutors }
+)(Nav);
