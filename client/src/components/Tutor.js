@@ -4,7 +4,7 @@ import { Button, Container, Card } from "semantic-ui-react";
 import { connect } from "react-redux";
 import "../styles/Tutor.css";
 
-// actions
+// action
 import { getSubjects, getTutors } from "../Actions/User/TutorAction";
 
 class Tutor extends Component {
