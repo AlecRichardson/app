@@ -3,7 +3,7 @@ import { Button, Form, Checkbox } from "semantic-ui-react";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
 
-import "../styles/Login.css";
+import "../styles/Profile.css";
 
 // actions
 import { addProfile } from "../Actions/User/UserAction";
@@ -54,13 +54,14 @@ class Profile extends Component {
   };
   render() {
     console.log("state", this.state);
+    const errors = this.props.profileErrors;
     return (
       <div>
         <div className="formInput">
           <h2>Profile</h2>
           <h3>Add subjects to your profile</h3>
           <Form onSubmit={this.onSubmit}>
-            <Form.Field>
+            <Form.Field error={Boolean(errors.error)}>
               <Checkbox
                 label="Math"
                 value="math"
@@ -86,6 +87,7 @@ class Profile extends Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
+            {errors.error ? <div className="error">{errors.error}</div> : null}
             <Form.Field
               className="formInput"
               control={Button}
@@ -102,8 +104,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginErrors: state.loginErrors,
-    loginSuccess: state.loginSuccess
+    profileErrors: state.userReducer.profileErrors
   };
 };
 

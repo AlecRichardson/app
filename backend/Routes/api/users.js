@@ -107,9 +107,10 @@ router.post("/login", (req, res) => {
 // @access  Public
 router.put("/profile", (req, res) => {
   const { subjects, id } = req.body;
+  console.log("subjects for profile: ", subjects);
   let error = "";
 
-  if (!subjects) {
+  if (!subjects.length) {
     console.log("No subjects in array");
     return res
       .status(400)
