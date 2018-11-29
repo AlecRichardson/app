@@ -6,11 +6,7 @@ import Nav from "../components/Layout/Nav";
 import Landing from "../components/Layout/Landing";
 import Footer from "../components/Layout/Footer";
 
-<<<<<<< HEAD
 import "../styles/App.css";
-=======
-import '../styles/App.css';
->>>>>>> 8f46474a9297504ed031d4ef49a5341b7b810306
 import "semantic-ui-css/semantic.min.css";
 
 import Register from "./Auth/Register";

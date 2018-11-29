@@ -4,16 +4,12 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require("cors");
 
-<<<<<<< HEAD
-const users = require("./routes/api/users");
-const tutors = require("./routes/api/tutors");
-=======
-const UsersRoute = require("./routes/api/users");
->>>>>>> 8f46474a9297504ed031d4ef49a5341b7b810306
+const users = require("./Routes/api/users");
+const tutors = require("./Routes/api/tutors");
 
 const app = express();
-var socketio = require('socket.io');
-var http = require('http');
+var socketio = require("socket.io");
+var http = require("http");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -50,55 +46,34 @@ router.use(function(req, res, next) {
   next();
 });
 
-<<<<<<< HEAD
 app.use("/api/users", users);
 app.use("/api/tutors", tutors);
-=======
-router.get("/", function(req, res) {
-  res.json({ message: "hello world! " });
-});
-
-router.route("/users").post(function(req, res) {
-  let user = new User();
-  user.username = req.body.username;
-
-  user.save(function(err) {
-    if (err) {
-      res.send(err);
-    }
-
-    res.json({ message: "User created!" });
-  });
-});
-
-app.use("/api/users", UsersRoute);
->>>>>>> 8f46474a9297504ed031d4ef49a5341b7b810306
-
 
 var server = http.Server(app);
 var io = socketio(server);
 
-server.listen(port, () => console.log('Listening on port ' + port + "..."));
-
+server.listen(port, () => console.log("Listening on port " + port + "..."));
 
 /* * * * WEBSOCKETS FOR CHATTING * * * */
 const Message = require("./models/message");
 var clients = {};
-var users = {};
+// var users = {};
 
-io.on('connection', (socket) => {
-  console.log('A client just joined: ', socket.id);
+io.on("connection", socket => {
+  console.log("A client just joined: ", socket.id);
 
-  socket.on('disconnect', () => {
-    console.log('A client disconnected: ', socket.id);
+  socket.on("disconnect", () => {
+    console.log("A client disconnected: ", socket.id);
   });
 
-  socket.on('chat message', (data) => {
-    console.log('to: ' + data.to);
-    console.log('from: ' + data.from);
-    console.log('message: ' + data.msg);
+  socket.on("chat message", data => {
+    console.log("to: " + data.to);
+    console.log("from: " + data.from);
+    console.log("message: " + data.msg);
 
-    io.sockets.in(data.to).emit('new message', {msg: data.msg, from: data.from});
+    io.sockets
+      .in(data.to)
+      .emit("new message", { msg: data.msg, from: data.from });
 
     let message = new Message();
     message.to = data.to;
@@ -106,17 +81,17 @@ io.on('connection', (socket) => {
     message.text = data.msg;
     message.createdAt = Date.now();
 
-    message.save( (err) => {
-      if(err) {
+    message.save(err => {
+      if (err) {
         console.log(err);
       }
 
       console.log("Message created!");
-    })
+    });
   });
 
-  socket.on('join', (data) => {
+  socket.on("join", data => {
     console.log(data.userId + " just joined");
     socket.join(data.userId);
-  })
+  });
 });
