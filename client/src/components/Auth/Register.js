@@ -55,6 +55,7 @@ class Register extends Component {
     return (
       <div className="formInput">
         <h2>Create Account</h2>
+        {errors.name ? <div className="error">{errors.name}</div> : null}
         <Form onSubmit={this.onSubmit}>
           <Form.Input
             className="formInput"
@@ -91,8 +92,8 @@ class Register extends Component {
                 <option value="12">12th Grade</option>
                 <option value="College">College</option>
               </Form.Field>
-              {errors.gradeLevel ? (
-                <div className="error">{errors.gradeLevel}</div>
+              {errors.userType ? (
+                <div className="error">{errors.userType}</div>
               ) : null}
             </div>
           </div>
@@ -123,8 +124,8 @@ class Register extends Component {
                 error={errors.userType}
               />
             </Form.Group>
-            {errors.userType ? (
-              <div className="error">{errors.userType}</div>
+            {errors.password ? (
+              <div className="error">{errors.password}</div>
             ) : null}
           </div>
           <Form.Input
@@ -136,8 +137,8 @@ class Register extends Component {
             onChange={this.onChange}
             error={errors.password}
           />
-          {errors.password ? (
-            <div className="error">{errors.password}</div>
+          {errors.password2 ? (
+            <div className="error">{errors.password2}</div>
           ) : null}
           <Form.Input
             className="formInput"
@@ -148,9 +149,6 @@ class Register extends Component {
             onChange={this.onChange}
             error={errors.password2}
           />
-          {errors.password2 ? (
-            <div className="error">{errors.password2}</div>
-          ) : null}
           <div>
             <Form.Field
               className="formInput"
