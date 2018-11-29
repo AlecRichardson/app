@@ -13,6 +13,7 @@ import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Profile from "../components/Profile";
 import Tutor from "../components/Tutor";
+import ChatRoom from "../components/ChatRoom";
 
 class App extends Component {
   state = { users: [] };
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/tutors" component={Tutor} />
+          <Route exact path="/chat/:to" component={ChatRoom}/> 
           <Footer />
         </div>
       </Router>

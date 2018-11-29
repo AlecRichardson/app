@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
 import { Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 // actions
 import { getSubjects, getTutors } from "../Actions/User/TutorAction";
@@ -39,6 +40,8 @@ class Tutor extends Component {
         ) : null}
         {this.props.tutors
           ? this.props.tutors.map((tutor, index) => {
+              console.dir(tutor._id);
+              let chatLink = '/chat/' + tutor._id;
               return (
                 <div key={index}>
                   <h1>{tutor.name}</h1>
@@ -53,7 +56,9 @@ class Tutor extends Component {
                       );
                     })}
                   </div>
-                  <Button content="Select" color="blue" />
+                  <Link to={chatLink} >
+                    <Button content="Select" color="blue" />
+                  </Link>
                 </div>
               );
             })

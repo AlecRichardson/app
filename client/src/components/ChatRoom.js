@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import '../styles/ChatRoom.css';
 import SocketIOClient from 'socket.io-client';
+import jwt_decode from "jwt-decode";
 import { Input } from 'semantic-ui-react';
 
 class ChatRoom extends Component {
   constructor(props){
     super(props);
+    let token = localStorage.getItem("userToken");
+    this.user = jwt_decode(token);
 
     this.state = {
-      targetUser: 'user2',
+      targetUser: props.match.params.to,
       input: ""
     };
 
@@ -16,16 +19,18 @@ class ChatRoom extends Component {
   }
 
   componentDidMount(){
-    this.socket.emit('join', {userId: this.props.userId});
+    console.log(this.user.id);
+    this.socket.emit('join', {userId: this.user.id});
 
     this.socket.on('new message', (data) => {
       alert(data.msg);
     });
+
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    this.socket.emit('chat message', {to: this.state.targetUser, from: this.props.userId, msg: this.state.input});
+    this.socket.emit('chat message', {to: this.state.targetUser, from: this.user.id, msg: this.state.input});
     this.setState({
       input: ""
     });
