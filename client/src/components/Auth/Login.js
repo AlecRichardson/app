@@ -41,6 +41,7 @@ class Login extends Component {
         <div className="formInput">
           <h2>Login</h2>
           <Form onSubmit={this.onSubmit}>
+            {errors.email ? <div className="error">{errors.email}</div> : null}
             <Form.Input
               className="formInput"
               placeholder="Email..."
@@ -50,7 +51,9 @@ class Login extends Component {
               onChange={this.onChange}
               error={errors.email}
             />
-            {errors.email ? <div className="error">{errors.email}</div> : null}
+            {errors.password ? (
+              <div className="error">{errors.password}</div>
+            ) : null}
             <Form.Input
               className="formInput"
               placeholder="Password..."
@@ -60,9 +63,6 @@ class Login extends Component {
               onChange={this.onChange}
               error={errors.password}
             />
-            {errors.password ? (
-              <div className="error">{errors.password}</div>
-            ) : null}
 
             <Form.Field
               className="formInput"
