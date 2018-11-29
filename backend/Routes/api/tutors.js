@@ -37,8 +37,8 @@ router.post("/:id/subjects", (req, res) => {
 // @route   POST api/tutors/gettutors
 // @desc    get tutors matching users subject list
 // @access  Public
-router.post("/gettutors", (req, res) => {
-  const { subjects } = req.body;
+router.get("/gettutors", (req, res) => {
+  const subjects = JSON.parse(req.query.subjects);
   console.log("Subjects to find: ", subjects);
   // Check Validation
   if (!subjects) {
@@ -52,7 +52,6 @@ router.post("/gettutors", (req, res) => {
 
       let tutors = users.filter(user => {
         for (let i = 0; i < user.subjects.length; i++) {
-          console.log("subject of user: ", user.subjects[i]);
           if (subjects.includes(user.subjects[i])) {
             return true;
           } else {

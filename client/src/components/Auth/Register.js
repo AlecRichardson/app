@@ -61,7 +61,9 @@ class Register extends Component {
             value={this.state.fullname}
             onChange={this.onChange}
           />
-
+          {this.props.registerErrors.name ? (
+            <div className="error">{this.props.registerErrors.name}</div>
+          ) : null}
           <Form.Input
             className="formInput"
             placeholder="Email..."
@@ -70,6 +72,9 @@ class Register extends Component {
             value={this.state.email}
             onChange={this.onChange}
           />
+          {this.props.registerErrors.email ? (
+            <div className="error">{this.props.registerErrors.email}</div>
+          ) : null}
           <div>
             <div className="formInput">
               <Form.Field
@@ -83,6 +88,11 @@ class Register extends Component {
                 <option value="12">12th Grade</option>
                 <option value="College">College</option>
               </Form.Field>
+              {this.props.registerErrors.gradeLevel ? (
+                <div className="error">
+                  {this.props.registerErrors.gradeLevel}
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="formInput">
@@ -110,6 +120,9 @@ class Register extends Component {
                 }}
               />
             </Form.Group>
+            {this.props.registerErrors.userType ? (
+              <div className="error">{this.props.registerErrors.userType}</div>
+            ) : null}
           </div>
           <Form.Input
             className="formInput"
@@ -119,6 +132,9 @@ class Register extends Component {
             value={this.state.password}
             onChange={this.onChange}
           />
+          {this.props.registerErrors.password ? (
+            <div className="error">{this.props.registerErrors.password}</div>
+          ) : null}
           <Form.Input
             className="formInput"
             placeholder="Confirm password..."
@@ -135,6 +151,9 @@ class Register extends Component {
               content="Register"
               color="green"
             />
+            {this.props.registerErrors.password2 ? (
+              <div className="error">{this.props.registerErrors.password2}</div>
+            ) : null}
           </div>
         </Form>
       </div>
@@ -143,6 +162,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log();
   return {
     registerErrors: state.registerErrors
   };

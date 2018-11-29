@@ -16,7 +16,7 @@ export const getSubjects = id => dispatch => {
     .catch(err => {
       dispatch({
         type: TUTOR_ERRORS,
-        payload: err.response.data
+        payload: err
       });
     });
 };
@@ -24,14 +24,18 @@ export const getSubjects = id => dispatch => {
 // get tutors
 export const getTutors = subjects => dispatch => {
   axios
-    .post("http://localhost:3001/api/tutors/gettutors", subjects)
+    .get(
+      `http://localhost:3001/api/tutors/gettutors?subjects=${JSON.stringify(
+        subjects
+      )}`
+    )
     .then(res => {
       dispatch({ type: GET_TUTOR_SUCCESS, payload: res.data.tutors });
     })
     .catch(err => {
       dispatch({
         type: GET_TUTOR_ERRORS,
-        payload: err.response.data
+        payload: err
       });
     });
 };
