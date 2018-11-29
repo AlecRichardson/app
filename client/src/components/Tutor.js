@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
-import { Button } from "semantic-ui-react";
+import { Button, Container, Card } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import "../styles/Tutor.css";
 
-// actions
+
+// action
 import { getSubjects, getTutors } from "../Actions/User/TutorAction";
 
 class Tutor extends Component {
@@ -33,37 +35,42 @@ class Tutor extends Component {
   render() {
     console.log("render props", this.props);
     return (
-      <div>
+      <Container>
         <h1>Find a tutor</h1>
-        {this.props.tutorErrors ? (
-          <div>There are currently no tutors matching your subjects.</div>
-        ) : null}
-        {this.props.tutors
-          ? this.props.tutors.map((tutor, index) => {
-              console.dir(tutor._id);
+        <Card.Group centered>
+          {this.props.tutorErrors ? (
+            <div>There are currently no tutors matching your subjects.</div>
+          ) : null}
+          {this.props.tutors
+            ? this.props.tutors.map((tutor, index) => {
               let chatLink = '/chat/' + tutor._id;
-              return (
-                <div key={index}>
-                  <h1>{tutor.name}</h1>
-                  <h3>{tutor.userType}</h3>
-                  <div>
-                    <h3>Subjects</h3>
-                    {tutor.subjects.map((subject, index) => {
-                      return (
-                        <div key={index}>
-                          <span>{subject}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <Link to={chatLink} >
-                    <Button content="Select" color="blue" />
-                  </Link>
-                </div>
-              );
-            })
-          : null}
-      </div>
+                return (
+                  <Card className="tutor-container" color="blue" key={index}>
+                    <Card.Content>
+                      <Card.Header>{tutor.name}</Card.Header>
+                      <Card.Meta>{tutor.userType}</Card.Meta>
+                      <Card.Description className="tutor-desc">
+                        <h3>Subjects</h3>
+                        <ul className="subject-list">
+                          {tutor.subjects.map((subject, index) => {
+                            return (
+                              <li key={index} className="subject">
+                                {subject}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </Card.Description>
+                      <Link to={chatLink}>
+                        <Button content="Select" color="blue" />
+                      </Link>
+                    </Card.Content>
+                  </Card>
+                );
+              })
+            : null}
+        </Card.Group>
+      </Container>
     );
   }
 }
