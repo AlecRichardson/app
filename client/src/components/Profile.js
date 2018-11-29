@@ -61,7 +61,7 @@ class Profile extends Component {
           <h2>Profile</h2>
           <h3>Add subjects to your profile</h3>
           <Form onSubmit={this.onSubmit}>
-            <Form.Field centered error={Boolean(errors.error)}>
+            <Form.Field centered="true" error={Boolean(errors.error)}>
               {errors.error ? (
                 <div className="error">{errors.error}</div>
               ) : null}
