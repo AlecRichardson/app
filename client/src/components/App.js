@@ -18,14 +18,23 @@ class App extends Component {
   state = { users: [] };
 
   render() {
-    console.log("app updated");
     return (
       <Router>
         <div className="App">
-          <Nav />
+          <Nav
+            onref={ref => {
+              this.nav = ref;
+            }}
+          />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            render={props => (
+              <Login {...props} toggleUser={this.nav.toggleUser} />
+            )}
+          />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/tutors" component={Tutor} />
           <Footer />

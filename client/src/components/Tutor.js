@@ -31,13 +31,11 @@ class Tutor extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.subjects !== this.props.subjects) {
-      console.log("CUP");
       this.props.getTutors(this.props.subjects);
     }
   };
 
   render() {
-    console.log("render props", this.props);
     return (
       <Container>
         <h1>Find a tutor</h1>
@@ -81,7 +79,6 @@ class Tutor extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("mapstate props: ", state);
   return {
     tutorErrors: state.tutorErrors,
     subjects: state.tutorReducer.subjects,

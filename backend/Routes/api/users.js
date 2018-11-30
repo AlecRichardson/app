@@ -19,7 +19,6 @@ router.post("/register", (req, res) => {
 
   // Check Validation
   if (!isValid) {
-    console.log(errors);
     return res.status(400).json(errors);
   }
 
@@ -56,7 +55,6 @@ router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   // Check Validation
   if (!isValid) {
-    console.log(errors);
     return res.status(400).json(errors);
   }
   const email = req.body.email;
@@ -107,17 +105,14 @@ router.post("/login", (req, res) => {
 // @access  Public
 router.put("/profile", (req, res) => {
   const { subjects, id } = req.body;
-  console.log("subjects for profile: ", subjects);
   let error = "";
 
   if (!subjects.length) {
-    console.log("No subjects in array");
     return res
       .status(400)
       .json({ error: "Please select at least one subject." });
   }
   if (!id) {
-    console.log("No user id");
     return res.status(400).json({ error: "Please re-login." });
   }
 
@@ -134,7 +129,6 @@ router.put("/profile", (req, res) => {
         .catch(err => console.log(err));
     })
     .catch(err => {
-      console.log("failed to update");
       return res.status(400).json({ error: "Didn't update" });
     });
 });

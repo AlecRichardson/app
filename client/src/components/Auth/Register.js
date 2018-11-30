@@ -165,7 +165,6 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("mapstatetoprops", state);
   return {
     registerErrors: state.userReducer.registerErrors
   };

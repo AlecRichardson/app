@@ -39,8 +39,6 @@ class Profile extends Component {
       subjects: this.state.subjects
     };
 
-    console.log("profile", newProfile);
-
     this.props.addProfile(newProfile, this.props.history);
   }
 
@@ -63,7 +61,6 @@ class Profile extends Component {
     }
   };
   render() {
-    console.log("state", this.state);
     const errors = this.props.profileErrors;
     return (
       <div>
