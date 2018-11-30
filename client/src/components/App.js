@@ -18,6 +18,7 @@ class App extends Component {
   state = { users: [] };
 
   render() {
+    console.log("app updated");
     return (
       <Router>
         <div className="App">
