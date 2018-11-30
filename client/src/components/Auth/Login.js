@@ -49,7 +49,7 @@ class Login extends Component {
               type="email"
               value={this.state.email}
               onChange={this.onChange}
-              error={errors.email}
+              error={Boolean(errors.email)}
             />
             {errors.password ? (
               <div className="error">{errors.password}</div>
@@ -61,7 +61,7 @@ class Login extends Component {
               type="password"
               value={this.state.password}
               onChange={this.onChange}
-              error={errors.password}
+              error={Boolean(errors.password)}
             />
 
             <Form.Field

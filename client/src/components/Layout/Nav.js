@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
-import { getSubjects, getTutors } from "../../Actions/User/TutorAction";
+import { loginUser } from "../../Actions/User/UserAction";
 class Nav extends Component {
   constructor(props) {
     super(props);
@@ -15,9 +15,13 @@ class Nav extends Component {
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
-  //
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.active !== this.props.active) {
+      this.setState({ activeItem: this.props.active });
+    }
+  };
+
   render() {
-    console.log("props from nav: ", this.props);
     const { activeItem } = this.state;
     return (
       <Container>
@@ -77,15 +81,12 @@ class Nav extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("mapstate props: ", state);
   return {
-    tutorErrors: state.tutorErrors,
-    subjects: state.tutorReducer.subjects,
-    tutors: state.tutorReducer.tutors
+    active: state.userReducer.active
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getSubjects, getTutors }
+  { loginUser }
 )(Nav);
