@@ -13,11 +13,21 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      subjects: []
+      subjects: [],
+      notLoggedIn: true
     };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  componentDidMount = () => {
+    let token = localStorage.getItem("userToken");
+    if (token) {
+      this.setState({ notLoggedIn: false });
+    } else {
+      this.setState({ notLoggedIn: true });
+    }
+  };
 
   onSubmit(e) {
     e.preventDefault();
@@ -59,47 +69,53 @@ class Profile extends Component {
       <div>
         <div className="formInput">
           <h2>Profile</h2>
-          <h3>Add subjects to your profile</h3>
-          <Form onSubmit={this.onSubmit}>
-            <Form.Field centered="true" error={Boolean(errors.error)}>
-              {errors.error ? (
-                <div className="error">{errors.error}</div>
-              ) : null}
-              <Checkbox
-                className="checkbox"
-                label="Math"
-                value="math"
-                name="math"
-                onChange={this.handleChange}
-              />
-              <Checkbox
-                label="Science"
-                value="science"
-                name="science"
-                onChange={this.handleChange}
-              />
-              <Checkbox
-                label="History"
-                value="history"
-                name="history"
-                onChange={this.handleChange}
-              />
-              <Checkbox
-                label="English"
-                value="english"
-                name="english"
-                onChange={this.handleChange}
-              />
-            </Form.Field>
+          {this.state.notLoggedIn ? (
+            <div>Please login before viewing your profile</div>
+          ) : (
+            <div>
+              <h3>Add subjects to your profile</h3>
+              <Form onSubmit={this.onSubmit}>
+                <Form.Field centered="true" error={Boolean(errors.error)}>
+                  {errors.error ? (
+                    <div className="error">{errors.error}</div>
+                  ) : null}
+                  <Checkbox
+                    className="checkbox"
+                    label="Math"
+                    value="math"
+                    name="math"
+                    onChange={this.handleChange}
+                  />
+                  <Checkbox
+                    label="Science"
+                    value="science"
+                    name="science"
+                    onChange={this.handleChange}
+                  />
+                  <Checkbox
+                    label="History"
+                    value="history"
+                    name="history"
+                    onChange={this.handleChange}
+                  />
+                  <Checkbox
+                    label="English"
+                    value="english"
+                    name="english"
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
 
-            <Form.Field
-              className="formInput"
-              control={Button}
-              fluid={true}
-              content="Submit"
-              color="green"
-            />
-          </Form>
+                <Form.Field
+                  className="formInput"
+                  control={Button}
+                  fluid={true}
+                  content="Submit"
+                  color="green"
+                />
+              </Form>
+            </div>
+          )}
         </div>
       </div>
     );

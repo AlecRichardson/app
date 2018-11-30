@@ -9,7 +9,7 @@ class Nav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeItem: "home" };
+    this.state = { activeItem: "home", validate: false };
   }
 
   handleItemClick = (e, { name }) => {
@@ -22,7 +22,7 @@ class Nav extends Component {
   };
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, validate } = this.state;
     return (
       <Container>
         <div className="Navbar">
