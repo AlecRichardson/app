@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Menu, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import "./Nav.css";
 
 import { loginUser } from "../../Actions/User/UserAction";
@@ -9,7 +10,7 @@ class Nav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeItem: "home" };
+    this.state = { activeItem: "home", validate: false, user: null };
   }
 
   handleItemClick = (e, { name }) => {
@@ -18,11 +19,15 @@ class Nav extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.active !== this.props.active) {
       this.setState({ activeItem: this.props.active });
+      // let token = localStorage.getItem("userToken");
+      // this.setState({ notLoggedIn: false });
+      // const decoded = jwt_decode(token);
+      // this.setState({ user: decoded.name });
     }
   };
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, validate } = this.state;
     return (
       <Container>
         <div className="Navbar">
