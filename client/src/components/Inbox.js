@@ -45,22 +45,6 @@ class Inbox extends Component {
   }
 
   render(){
-    const list = [
-    {
-      from: 'Alec',
-      latestMessage: '3Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-    },
-    {
-      from: 'Alec2',
-      latestMessage: '2Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-    },
-    {
-      from: 'Alec3',
-      latestMessage: '1Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-    },
-
-    ];
-
     return (
       <div id='inbox'>
         <Comment.Group>

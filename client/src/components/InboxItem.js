@@ -3,7 +3,6 @@ import { List, Card, Comment, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class InboxItem extends Component {
-
   render(){
     let date = new Date(this.props.createdAt*10);
     console.log(new Date());

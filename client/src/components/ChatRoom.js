@@ -13,6 +13,7 @@ class ChatRoom extends Component {
 
     this.state = {
       targetUser: props.match.params.to,
+      targetUserName: "",
       input: "",
       chat: []
     };
@@ -21,8 +22,12 @@ class ChatRoom extends Component {
   }
 
   componentDidMount(){
-    console.log('mounted!');
-    console.log(this.user.id);
+    fetch('/api/users/getUserById?id=' + this.state.targetUser)
+      .then(res => res.json())
+      .then(user => {
+        this.setState({targetUserName: user.name});
+      });
+
     // populate chat with any existing messages
     this.findMessages(this.user.id, this.props.match.params.to);
 
@@ -96,20 +101,24 @@ class ChatRoom extends Component {
 
   render(){
     return (
-      <div className="ChatRoom">
-        {this.state.chat ? (<div>This is the beginning of your conversation.</div>) : null }
-          <ul id="chatBody">
-            {this.state.chat ? this.state.chat.map((message, index) => {
-              let messageDirection = message.from == this.user.id ? 'outgoing' : 'incoming';
-              return(
-                <Message key={index} msg={message.msg} messageDirection={messageDirection}/>
-              );
-            }) : null}
-          </ul>
-
-        <form id="messageForm" onSubmit={this.handleSubmit}>
-            <Input type="text" id="input" fluid onChange={this.handleChange} autoComplete="off" placeholder="Say something..." icon='send' autoFocus/>
-        </form>
+      <div>
+        <h1>{this.state.targetUserName}</h1>
+        <div className="ChatRoom">
+          <div id="chatBody">
+            <div><i>This is the beginning of your conversation.</i></div>
+            <ul>
+              {this.state.chat ? this.state.chat.map((message, index) => {
+                let messageDirection = message.from == this.user.id ? 'outgoing' : 'incoming';
+                return(
+                  <Message key={index} msg={message.msg} messageDirection={messageDirection}/>
+                );
+              }) : null}
+            </ul>
+          </div>
+          <form id="messageForm" onSubmit={this.handleSubmit}>
+              <Input type="text" id="input" fluid onChange={this.handleChange} autoComplete="off" placeholder="Say something..." icon='send' autoFocus/>
+          </form>
+        </div>
       </div>
     );
   }
