@@ -10,24 +10,49 @@ class Nav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeItem: "home", validate: false, user: null };
+    this.state = { activeItem: "home", user: false, name: null };
   }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
   componentDidUpdate = (prevProps, prevState) => {
+    console.log("nav didupdate");
     if (prevProps.active !== this.props.active) {
       this.setState({ activeItem: this.props.active });
-      // let token = localStorage.getItem("userToken");
-      // this.setState({ notLoggedIn: false });
-      // const decoded = jwt_decode(token);
-      // this.setState({ user: decoded.name });
+      let token = localStorage.getItem("userToken");
+      const decoded = jwt_decode(token);
+      this.setState({ name: decoded.name });
+    }
+  };
+
+  toggleUser = () => {
+    this.setState({ user: !this.state.user });
+    console.log("user has been toggled");
+  };
+
+  componentDidMount = () => {
+    this.props.onref(this);
+  };
+
+  componentWillUnmount = () => {
+    this.props.onref(undefined);
+  };
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    let token = localStorage.getItem("userToken");
+    if (token) {
+      console.log("nav shouldcomp YES");
+      return true;
+    } else {
+      console.log("nav shouldcomp NO");
+      return false;
     }
   };
 
   render() {
-    const { activeItem, validate } = this.state;
+    console.log("nav render", this.state);
+    const { activeItem } = this.state;
     return (
       <Container>
         <div className="Navbar">
@@ -81,6 +106,11 @@ class Nav extends Component {
                 <Menu.Item
                   as="span"
                   name="login"
+                  content={
+                    this.state.user === true
+                      ? `Hi, ${this.state.name}`
+                      : "Login"
+                  }
                   active={activeItem === "login"}
                   onClick={this.handleItemClick}
                 />

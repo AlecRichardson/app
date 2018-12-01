@@ -11,7 +11,6 @@ router.post("/:id/subjects", (req, res) => {
   const { id } = req.params;
   // Check Validation
   if (!id) {
-    console.log(errors);
     return res.status(400).json({
       error: "You need to set up your profile before finding tutors."
     });
@@ -39,7 +38,6 @@ router.post("/:id/subjects", (req, res) => {
 // @access  Public
 router.get("/gettutors", (req, res) => {
   const subjects = JSON.parse(req.query.subjects);
-  console.log("Subjects to find: ", subjects);
   // Check Validation
   if (!subjects) {
     return res.status(400).json({
@@ -48,8 +46,6 @@ router.get("/gettutors", (req, res) => {
   }
   User.find({ userType: "tutor" })
     .then(users => {
-      // console.log("User in find", users);
-
       let tutors = users.filter(user => {
         for (let i = 0; i < user.subjects.length; i++) {
           if (subjects.includes(user.subjects[i])) {
@@ -65,7 +61,6 @@ router.get("/gettutors", (req, res) => {
           .status(200)
           .json({ error: "No tutors matching your subject list." });
       } else {
-        console.log("tutors: ", tutors);
         return res.status(200).json({ tutors });
       }
     })
