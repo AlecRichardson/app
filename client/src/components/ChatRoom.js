@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/ChatRoom.css';
 import SocketIOClient from 'socket.io-client';
 import jwt_decode from "jwt-decode";
-import { Input, Grid } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import Message from './Message.js';
 
 class ChatRoom extends Component {
@@ -34,7 +34,6 @@ class ChatRoom extends Component {
     this.socket.emit('join', {userId: this.user.id});
 
     this.socket.on('new message', (data) => {
-      console.log(data.msg);
       this.handleIncomingMessage(data);
     });
   }
@@ -48,18 +47,12 @@ class ChatRoom extends Component {
   }
 
   handleIncomingMessage = data => {
-    console.dir(data);
-    console.log("From: ", data.from);
-    console.log("Current chatmate: ", this.state.targetUser);
-    if(data.from != this.state.targetUser){
-      console.log("Adding to inbox...");
-      // Add message to inbox, not current chat
+    if(data.from !== this.state.targetUser){
+      // Don't add message to current chat
       return;
     }
 
     // Add message to current chat
-    console.log("Adding to current chat...");
-
     let message = {
       from: data.from,
       to: this.user.id,
@@ -108,7 +101,7 @@ class ChatRoom extends Component {
             <div><i>This is the beginning of your conversation.</i></div>
             <ul>
               {this.state.chat ? this.state.chat.map((message, index) => {
-                let messageDirection = message.from == this.user.id ? 'outgoing' : 'incoming';
+                let messageDirection = message.from === this.user.id ? 'outgoing' : 'incoming';
                 return(
                   <Message key={index} msg={message.msg} messageDirection={messageDirection}/>
                 );
