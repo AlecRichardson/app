@@ -19,6 +19,7 @@ ul#chatBody {
   margin-right: auto;
   width: 75%;
   max-width: 700px;
+  overflow-y: hidden;
 }
 
 /* * { margin: 0; padding: 0; box-sizing: border-box; }

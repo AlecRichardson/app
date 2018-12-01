@@ -21,9 +21,11 @@ class ChatRoom extends Component {
   }
 
   componentDidMount(){
+    console.log('mounted!');
     console.log(this.user.id);
     // populate chat with any existing messages
     this.findMessages(this.user.id, this.props.match.params.to);
+
     this.socket.emit('join', {userId: this.user.id});
 
     this.socket.on('new message', (data) => {
