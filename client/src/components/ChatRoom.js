@@ -18,11 +18,11 @@ class ChatRoom extends Component {
       chat: []
     };
 
-    this.socket = SocketIOClient('http://localhost:3001/');
+    this.socket = SocketIOClient('https://www.derekrogers.me:3001/');
   }
 
   componentDidMount(){
-    fetch('/api/users/getUserById?id=' + this.state.targetUser)
+    fetch('https://www.derekrogers.me:3001/api/users/getUserById?id=' + this.state.targetUser)
       .then(res => res.json())
       .then(user => {
         this.setState({targetUserName: user.name});
@@ -39,7 +39,7 @@ class ChatRoom extends Component {
   }
 
   findMessages = (user1, user2) => {
-    fetch('/api/chat/getMessages?user1=' +user1+ '&user2=' +user2)
+    fetch('https://www.derekrogers.me:3001/api/chat/getMessages?user1=' +user1+ '&user2=' +user2)
     .then(res => res.json())
     .then(messages => {
       this.setState({chat: messages.chats});

@@ -16,7 +16,7 @@ class Inbox extends Component {
   componentDidMount(){
     let token = localStorage.getItem("userToken");
     let user = jwt_decode(token);
-    fetch('/api/chat/getInbox?user=' + user.id)
+    fetch('https://www.derekrogers.me:3001/api/chat/getInbox?user=' + user.id)
       .then(res => res.json())
       .then(chats => {
         this.setState({inboxList: chats.chatPartners});
@@ -24,7 +24,7 @@ class Inbox extends Component {
       .then(() => {
         let chats = this.state.inboxList;
         chats.forEach((chat, index) => {
-          fetch('/api/users/getUserById?id=' + chat.targetId)
+          fetch('https://www.derekrogers.me:3001/api/users/getUserById?id=' + chat.targetId)
             .then(res => res.json())
             .then(user => {
               chat.from = user.name;

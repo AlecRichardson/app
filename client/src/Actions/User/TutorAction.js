@@ -9,7 +9,7 @@ import axios from "axios";
 // get subjects
 export const getSubjects = id => dispatch => {
   axios
-    .post(`http://localhost:3001/api/tutors/${id}/subjects`)
+    .post(`https://www.derekrogers.me:3001/api/tutors/${id}/subjects`)
     .then(res => {
       dispatch({ type: TUTOR_SUCCESS, payload: res.data.subjects });
     })
@@ -25,7 +25,7 @@ export const getSubjects = id => dispatch => {
 export const getTutors = subjects => dispatch => {
   axios
     .get(
-      `http://localhost:3001/api/tutors/gettutors?subjects=${JSON.stringify(
+      `https://www.derekrogers.me:3001/api/tutors/gettutors?subjects=${JSON.stringify(
         subjects
       )}`
     )

@@ -11,7 +11,7 @@ import axios from "axios";
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:3001/api/users/register", userData)
+    .post("https://www.derekrogers.me/api/users/register", userData)
     .then(res => {
       dispatch({ type: USER_REGISTER_SUCCESS, payload: "login" });
       history.push("/login");
@@ -27,7 +27,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Login User
 export const loginUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:3001/api/users/login", userData)
+    .post("https://www.derekrogers.me:3001/api/users/login", userData)
     .then(res => {
       dispatch({ type: USER_LOGIN_SUCCESS, payload: "profile" });
       localStorage.setItem("userToken", res.data.token);
@@ -44,7 +44,7 @@ export const loginUser = (userData, history) => dispatch => {
 // add Profile
 export const addProfile = (userData, history) => dispatch => {
   axios
-    .put("http://localhost:3001/api/users/profile", userData)
+    .put("https://www.derekrogers.me:3001/api/users/profile", userData)
     .then(res => {
       dispatch({ type: PROFILE_SUCCESS, payload: "tutors" });
       history.push("/tutors");

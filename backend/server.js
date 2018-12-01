@@ -11,6 +11,11 @@ const chat = require("./Routes/api/chat");
 const app = express();
 var socketio = require("socket.io");
 var http = require("http");
+var http = require('https');
+var fs = require('fs');
+var secretKey = fs.readFileSync('./server.key', 'utf8');
+var certificate = fs.readFileSync('./derekrogers.me.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -50,7 +55,7 @@ app.use("/api/users", users);
 app.use("/api/tutors", tutors);
 app.use("/api/chat", chat);
 
-var server = http.Server(app);
+var server = https.createServer(credentials, app);
 var io = socketio(server);
 
 server.listen(port, () => console.log("Listening on port " + port + "..."));
