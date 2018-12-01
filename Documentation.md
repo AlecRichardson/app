@@ -5,7 +5,9 @@
 ### Group Intro
 
 Group name: Group Undecided
+
 GitHub repo: https://www.github.com/Hack-Week-Project/app
+
 Running instance: https://www.derekrogers.me
 
 Members:
