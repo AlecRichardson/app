@@ -43,7 +43,6 @@ db.once("open", function() {
 const router = express.Router();
 
 router.use(function(req, res, next) {
-  console.log("Request received with ready state [" + db.readyState + "]");
   next();
 });
 
@@ -56,23 +55,12 @@ var io = socketio(server);
 
 server.listen(port, () => console.log("Listening on port " + port + "..."));
 
-/* * * * WEBSOCKETS FOR CHATTING * * * */
+/* * * * WEBSOCKETS FOR MESSAGING * * * */
 const Message = require("./models/message");
 var clients = {};
-// var users = {};
 
 io.on("connection", socket => {
-  console.log("A client just joined: ", socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("A client disconnected: ", socket.id);
-  });
-
   socket.on("chat message", data => {
-    console.log("to: " + data.to);
-    console.log("from: " + data.from);
-    console.log("message: " + data.msg);
-
     io.sockets
       .in(data.to)
       .emit("new message", { msg: data.msg, from: data.from });
@@ -87,13 +75,10 @@ io.on("connection", socket => {
       if (err) {
         console.log(err);
       }
-
-      console.log("Message created!");
     });
   });
 
   socket.on("join", data => {
-    console.log(data.userId + " just joined");
     socket.join(data.userId);
   });
 });
