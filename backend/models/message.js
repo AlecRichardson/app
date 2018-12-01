@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
-       text: String,
-  createdAt: Date,
+        msg: String,
+  createdAt: String,
          to: String,
        from: String
 });

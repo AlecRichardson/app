@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const users = require("./Routes/api/users");
 const tutors = require("./Routes/api/tutors");
+const chat = require("./Routes/api/chat");
 
 const app = express();
 var socketio = require("socket.io");
@@ -48,6 +49,7 @@ router.use(function(req, res, next) {
 
 app.use("/api/users", users);
 app.use("/api/tutors", tutors);
+app.use("/api/chat", chat);
 
 var server = http.Server(app);
 var io = socketio(server);
@@ -78,7 +80,7 @@ io.on("connection", socket => {
     let message = new Message();
     message.to = data.to;
     message.from = data.from;
-    message.text = data.msg;
+    message.msg = data.msg;
     message.createdAt = Date.now();
 
     message.save(err => {

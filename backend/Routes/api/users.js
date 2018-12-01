@@ -133,4 +133,18 @@ router.put("/profile", (req, res) => {
     });
 });
 
+router.get("/getUserById", (req, res) => {
+  // fetch usernames from Users collection
+  console.log("id: " + req.query.id);
+  let targetId = req.query.id;
+  User.findById(targetId)
+    .then( user => {
+        res.status(200).json({name: user.name});
+    })
+    .catch(err => {
+      res.status(400).json({error: 'no user found'});
+    });
+});
+
+
 module.exports = router;

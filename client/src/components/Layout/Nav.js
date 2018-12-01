@@ -76,6 +76,14 @@ class Nav extends Component {
                 onClick={this.handleItemClick}
               />
             </Link>
+            <Link to="/inbox">
+              <Menu.Item
+                as="span"
+                name="inbox"
+                active={activeItem === "inbox"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
             <Link to="/profile">
               <Menu.Item
                 as="span"
