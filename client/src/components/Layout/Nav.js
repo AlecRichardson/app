@@ -2,23 +2,32 @@ import React, { Component } from "react";
 import { Menu, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import "./Nav.css";
 
-import { getSubjects, getTutors } from "../../Actions/User/TutorAction";
+import { loginUser } from "../../Actions/User/UserAction";
 class Nav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeItem: "home" };
+    this.state = { activeItem: "home", validate: false, user: null };
   }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
-  //
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.active !== this.props.active) {
+      this.setState({ activeItem: this.props.active });
+      // let token = localStorage.getItem("userToken");
+      // this.setState({ notLoggedIn: false });
+      // const decoded = jwt_decode(token);
+      // this.setState({ user: decoded.name });
+    }
+  };
+
   render() {
-    console.log("props from nav: ", this.props);
-    const { activeItem } = this.state;
+    const { activeItem, validate } = this.state;
     return (
       <Container>
         <div className="Navbar">
@@ -39,6 +48,14 @@ class Nav extends Component {
                 as="span"
                 name="find tutors"
                 active={activeItem === "find tutors"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
+            <Link to="/inbox">
+              <Menu.Item
+                as="span"
+                name="inbox"
+                active={activeItem === "inbox"}
                 onClick={this.handleItemClick}
               />
             </Link>
@@ -77,15 +94,12 @@ class Nav extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("mapstate props: ", state);
   return {
-    tutorErrors: state.tutorErrors,
-    subjects: state.tutorReducer.subjects,
-    tutors: state.tutorReducer.tutors
+    active: state.userReducer.active
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getSubjects, getTutors }
+  { loginUser }
 )(Nav);

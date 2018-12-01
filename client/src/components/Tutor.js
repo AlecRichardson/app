@@ -14,15 +14,21 @@ class Tutor extends Component {
     super(props);
 
     this.state = {
-      subjects: []
+      subjects: [],
+      notLoggedIn: true
     };
   }
 
   componentDidMount = () => {
     let token = localStorage.getItem("userToken");
-    const decoded = jwt_decode(token);
-    let user = decoded.id;
-    this.props.getSubjects(user);
+    if (token) {
+      this.setState({ notLoggedIn: false });
+      const decoded = jwt_decode(token);
+      let user = decoded.id;
+      this.props.getSubjects(user);
+    } else {
+      this.setState({ notLoggedIn: true });
+    }
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -37,39 +43,43 @@ class Tutor extends Component {
     return (
       <Container>
         <h1>Find a tutor</h1>
-        <Card.Group centered>
-          {this.props.tutorErrors ? (
-            <div>There are currently no tutors matching your subjects.</div>
-          ) : null}
-          {this.props.tutors
-            ? this.props.tutors.map((tutor, index) => {
-              let chatLink = '/chat/' + tutor._id;
-                return (
-                  <Card className="tutor-container" color="blue" key={index}>
-                    <Card.Content>
-                      <Card.Header>{tutor.name}</Card.Header>
-                      <Card.Meta>{tutor.userType}</Card.Meta>
-                      <Card.Description className="tutor-desc">
-                        <h3>Subjects</h3>
-                        <ul className="subject-list">
-                          {tutor.subjects.map((subject, index) => {
-                            return (
-                              <li key={index} className="subject">
-                                {subject}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </Card.Description>
-                      <Link to={chatLink}>
-                        <Button content="Select" color="blue" />
-                      </Link>
-                    </Card.Content>
-                  </Card>
-                );
-              })
-            : null}
-        </Card.Group>
+        {this.state.notLoggedIn ? (
+          <div>Please login before searching for tutors</div>
+        ) : (
+          <Card.Group centered>
+            {this.props.tutorErrors ? (
+              <div>There are currently no tutors matching your subjects.</div>
+            ) : null}
+            {this.props.tutors
+              ? this.props.tutors.map((tutor, index) => {
+                let chatLink = '/chat/' + tutor._id;
+                  return (
+                    <Card className="tutor-container" color="blue" key={index}>
+                      <Card.Content>
+                        <Card.Header>{tutor.name}</Card.Header>
+                        <Card.Meta>{tutor.userType}</Card.Meta>
+                        <Card.Description className="tutor-desc">
+                          <h3>Subjects</h3>
+                          <ul className="subject-list">
+                            {tutor.subjects.map((subject, index) => {
+                              return (
+                                <li key={index} className="subject">
+                                  {subject}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </Card.Description>
+                        <Link to={chatLink}>
+                          <Button content="Select" color="blue" />
+                        </Link>
+                      </Card.Content>
+                    </Card>
+                  );
+                })
+              : null}
+          </Card.Group>
+        )}
       </Container>
     );
   }

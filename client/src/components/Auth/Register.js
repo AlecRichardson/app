@@ -63,7 +63,7 @@ class Register extends Component {
             name="fullname"
             value={this.state.fullname}
             onChange={this.onChange}
-            error={errors.name}
+            error={Boolean(errors.name)}
           />
           {errors.email ? <div className="error">{errors.email}</div> : null}
           <Form.Input
@@ -73,7 +73,7 @@ class Register extends Component {
             type="email"
             value={this.state.email}
             onChange={this.onChange}
-            error={errors.email}
+            error={Boolean(errors.email)}
           />
           {errors.gradeLevel ? (
             <div className="error">{errors.gradeLevel}</div>
@@ -84,7 +84,7 @@ class Register extends Component {
                 control="select"
                 name="gradeLevel"
                 onChange={this.onChange}
-                error={errors.gradeLevel}
+                error={Boolean(errors.gradeLevel)}
               >
                 <option value="9">9th Grade</option>
                 <option value="10">10th Grade</option>
@@ -111,7 +111,7 @@ class Register extends Component {
                     name: "userType"
                   });
                 }}
-                error={errors.userType}
+                error={Boolean(errors.userType)}
               />
               <Form.Radio
                 label="Tutor"
@@ -121,7 +121,7 @@ class Register extends Component {
                 onChange={() => {
                   this.handleChange(null, { value: "tutor", name: "userType" });
                 }}
-                error={errors.userType}
+                error={Boolean(errors.userType)}
               />
             </Form.Group>
             {errors.password ? (
@@ -135,7 +135,7 @@ class Register extends Component {
             type="password"
             value={this.state.password}
             onChange={this.onChange}
-            error={errors.password}
+            error={Boolean(errors.password)}
           />
           {errors.password2 ? (
             <div className="error">{errors.password2}</div>
@@ -147,7 +147,7 @@ class Register extends Component {
             type="password"
             value={this.state.password2}
             onChange={this.onChange}
-            error={errors.password2}
+            error={Boolean(errors.password2)}
           />
           <div>
             <Form.Field
